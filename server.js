@@ -51,27 +51,51 @@ const RESTAURANT = {
   }
   
 
-app.get('/', (req,res) => {
+app.get('/home', (req,res) => {
     res.render('home.ejs', {
         restaurant: RESTAURANT
     });
 });
 
+app.get('/menu', (req,res) => {
+  res.render('menu.ejs', {
+    menu: RESTAURANT.menu
+
+  })
+})
+
+app.get('/menu/:category', (req,res) => {
+  console.log(req.params)
+
+  const menu = RESTAURANT.menu
+  let menuItems = []
+  const category = req.params.category
+  menu.filter((item) =>    {
+    // console.log(item.category)
+
+    if(category === item.category){
+      // console.log('item:', item)
+      menuItems.push(item)
+      console.log('menuItems: ', menuItems)
+      return menuItems  
+    } else {
+      // console.log('invalid category')
+    }
+
+  }
 
 
 
-// <%  restaurant.forEach((place) => { %>
-//     <li><%= place.name %>: <%= place.address%>: <%= place.phone%></li>
-//  <% }); %>
+);
+
+
+  res.render('category', {
+    menuItems : menuItems
+  })
+});
 
 
 
-
-
-
-
-
-
-
-
-app.listen(3000);
+app.listen(3001, () => {
+  console.log('listening on port 3001')
+} );
