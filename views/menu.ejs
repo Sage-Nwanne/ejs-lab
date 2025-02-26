@@ -6,41 +6,51 @@
   <title>Menu</title>
 </head>
 <body>
-<%- include('./partials/nav') %>
+  <%- include('./partials/nav') %>
 
-  <h1>Full Menu <%= RESTAURANT.menu %></h1>
-  <% menu.forEach(item => {
+  <h1>Full Menu of <%= restaurant.name %></h1>
 
-   <li><%= item.name %></li> 
-   <li><%= item.price %></li> 
-   <li><%= item.rating %></li> 
-   <li><%= item.details %></li> 
+  <% if (restaurant.menu.some(item => item.category === 'mains')) { %>
+    <h2>Mains</h2>
+    <ul>
+      <% restaurant.menu.forEach(item => { %>
+        <% if (item.category === 'mains') { %>
+          <li><%= item.name %> - <%= item.price %>$</li> 
+          <li>Rating: <%= item.rating %> /5</li> 
+          <li><%= item.details %></li>
+        <% } %>
+      <% }); %>
+    </ul>
+  <% } %>
+
+  <% if (restaurant.menu.some(item => item.category === 'desserts')) { %>
+    <h2>Desserts</h2>
+    <ul>
+      <% restaurant.menu.forEach(item => { %>
+        <% if (item.category === 'desserts') { %>
+          <li><%= item.name %> - <%= item.price %>$</li> 
+          <li>Rating: <%= item.rating %> /5</li> 
+          <li><%= item.details %></li>
+        <% } %>
+      <% }); %>
+    </ul>
+  <% } %>
+
+  <% if (restaurant.menu.some(item => item.category === 'sides')) { %>
+    <h2>Sides</h2>
+    <ul>
+      <% restaurant.menu.forEach(item => { %>
+        <% if (item.category === 'sides') { %>
+          <li><%= item.name %> - <%= item.price %>$</li> 
+          <li>Rating: <%= item.rating %> /5</li> 
+          <li><%= item.details %></li>
+        <% } %>
+      <% }); %>
+    </ul>
     
-    <% if (item.category === 'mains') { %>
-        <h2>Mains
-            <li><%= item.name %></li> 
-            <li><%= item.price %></li> 
-            <li><%= item.rating %></li> 
-            <li><%= item.details %></li> 
-         </h2>
-        
-<% }  else if (item.category === 'desserts') { %>
-        <h2>Desserts
-            <li><%= item.name %></li> 
-            <li><%= item.price %></li> 
-            <li><%= item.rating %></li> 
-            <li><%= item.details %></li> 
-        </h2>
- <% } else { %>
-    <h2>Sides
-        <li><%= item.name %></li> 
-        <li><%= item.price %></li> 
-        <li><%= item.rating %></li> 
-         <li><%= item.details %></li> 
-    </h2>
+  <% } %>
 
- <% } %>
-
-  <% }); %>
+  
 </body>
+
 </html>

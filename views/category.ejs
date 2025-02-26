@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Categories</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= category %> - Menu</title>
 </head>
-<body> 
-    <%- include('./partials/nav') %>
+<body>
+  <%- include('./partials/nav') %> 
 
+  <h1><%= category %> Menu</h1>
 
-
-
-
-
-
-
-
-
-
-
-
-
+  <% if (menuItems.length > 0) { %>
+    <ul>
+      <% menuItems.forEach(item => { %>
+        <li><strong><%= item.name %> <%= item.rating === 5 ? '⭐' : '' %></strong> - $<%= item.price %></li>
+        <li> Rating: <%= item.rating %>/5</li>
+        <li><%= item.details %></li>
+        <br> <!-- Add some spacing between items -->
+      <% }); %>
+    </ul>
+  <% } else { %>
+    <p>No items found in this category.</p>
+  <% } %>
 </body>
+</html>

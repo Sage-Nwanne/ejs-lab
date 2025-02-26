@@ -51,7 +51,12 @@ const RESTAURANT = {
   }
   
 
-app.get('/home', (req,res) => {
+
+
+
+
+
+app.get('/', (req,res) => {
     res.render('home.ejs', {
         restaurant: RESTAURANT
     });
@@ -59,40 +64,20 @@ app.get('/home', (req,res) => {
 
 app.get('/menu', (req,res) => {
   res.render('menu.ejs', {
-    menu: RESTAURANT.menu
+    restaurant: RESTAURANT
 
   })
 })
 
 app.get('/menu/:category', (req,res) => {
-  console.log(req.params)
 
-  const menu = RESTAURANT.menu
-  let menuItems = []
-  const category = req.params.category
-  menu.filter((item) =>    {
-    // console.log(item.category)
+  const selectedCat = req.params.category;
 
-    if(category === item.category){
-      // console.log('item:', item)
-      menuItems.push(item)
-      console.log('menuItems: ', menuItems)
-      return menuItems  
-    } else {
-      // console.log('invalid category')
-    }
-
-  }
-
-
-
-);
-
-
-  res.render('category', {
-    menuItems : menuItems
-  })
-});
+const menuItems = RESTAURANT.menu.filter((item) => item.category === selectedCat);
+const formattedCat = selectedCat.charAt(0).toUpperCase() + selectedCat.slice(1);
+    
+res.render('category.ejs', {category:formattedCat, menuItems: menuItems} )});
+  
 
 
 
